@@ -29,9 +29,23 @@ body {
     flex-direction: column;
 }
 
-.header { text-align: center; margin-bottom: 25px; }
-.header h1 { color: #012635; font-size: 24px; font-weight: 700; }
-.header p { color: #666; font-size: 15px; }
+.header { 
+    text-align: center; 
+    margin-bottom: 25px; 
+}
+
+.header h1 { 
+    color: #012635; 
+    font-size: 24px; 
+    font-weight: 700;
+    margin-bottom: 10px; /* increased spacing */
+}
+
+.header p { 
+    color: #666; 
+    font-size: 15px;
+    line-height: 1.4;
+}
 
 .progress-bar {
     background: #e9ecef;
@@ -47,8 +61,15 @@ body {
     transition: width 0.4s ease;
 }
 
-.question-card { display: none; flex-grow: 1; }
-.question-card.active { display: block; }
+.question-card { 
+    display: none; 
+    flex-grow: 1;
+    padding-top: 30px; /* lowers question copy */
+}
+
+.question-card.active { 
+    display: block; 
+}
 
 .question-card h3 {
     color: #012635;
@@ -57,7 +78,11 @@ body {
     font-weight: 600;
 }
 
-.options { display: flex; flex-direction: column; gap: 12px; }
+.options { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
 
 .option {
     background: white;
@@ -102,7 +127,9 @@ body {
     align-items: center;
 }
 
-.result-card.active { display: flex; }
+.result-card.active { 
+    display: flex; 
+}
 
 .bg-ai-assist-pro { background: #012635; }
 .bg-ai-assist { background: #005ABB; }
@@ -218,28 +245,36 @@ body {
 <!-- RESULTS -->
 <div class="result-card bg-ai-assist-pro" id="ai_assist_pro">
 <h3>AI Assist Pro</h3>
-<div class="value-box"><div class="value-statement">Access conversation insights before, during and after every interaction.</div></div>
+<div class="value-box">
+    <div class="value-statement">Access conversation insights before, during and after every interaction.</div>
+</div>
 <div class="cta-text">Check our product demo on the right, or meet with one of our product experts through the contact button</div>
 <button class="restart-btn" onclick="restart()">Go back</button>
 </div>
 
 <div class="result-card bg-ai-assist" id="ai_assist">
 <h3>AI Assist</h3>
-<div class="value-box"><div class="value-statement">Boost your team's productivity and uncover growth opportunities.</div></div>
+<div class="value-box">
+    <div class="value-statement">Boost your team's productivity and uncover growth opportunities.</div>
+</div>
 <div class="cta-text">Check our product demo on the right, or meet with one of our product experts through the contact button</div>
 <button class="restart-btn" onclick="restart()">Go back</button>
 </div>
 
 <div class="result-card bg-analytics" id="analytics_plus">
 <h3>Analytics+</h3>
-<div class="value-box"><div class="value-statement">Gather tactical insights into your business objectives.</div></div>
+<div class="value-box">
+    <div class="value-statement">Gather tactical insights into your business objectives.</div>
+</div>
 <div class="cta-text">Check our product demo on the right, or meet with one of our product experts through the contact button</div>
 <button class="restart-btn" onclick="restart()">Go back</button>
 </div>
 
 <div class="result-card bg-voice" id="voice_agent">
 <h3>AI Voice Agent</h3>
-<div class="value-box"><div class="value-statement">Replace, deflect and cover any missed conversations.</div></div>
+<div class="value-box">
+    <div class="value-statement">Replace, deflect and cover any missed conversations.</div>
+</div>
 <div class="cta-text">Check our product demo on the right, or meet with one of our product experts through the contact button</div>
 <button class="restart-btn" onclick="restart()">Go back</button>
 </div>
@@ -258,8 +293,6 @@ function nextQuestion(id, progress) {
     document.getElementById(id).classList.add('active');
 
     updateProgress(progress);
-
-    // Show Back button ONLY on Q2
     backBtn.style.display = 'block';
 }
 
@@ -284,7 +317,6 @@ function goBack() {
 
     updateProgress(historyStack.length ? 50 : 0);
 
-    // Hide Back button when returning to Q1
     if (currentViewId === 'q1') {
         backBtn.style.display = 'none';
     }
