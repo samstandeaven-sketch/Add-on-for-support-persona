@@ -69,12 +69,6 @@ body {
     font-weight: 500;
     color: #012635;
     transition: all 0.2s ease;
-
-}
-
-div[id^="q2_"] .option:hover {
-    background-color: #eef1f6;
-
 }
 
 .option:hover {
@@ -163,7 +157,10 @@ div[id^="q2_"] .option:hover {
     <p>Select your biggest challenge to understand how Aircall can help</p>
 </div>
 
-<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+</div>
+
 <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
 
 <!-- Q1 -->
@@ -177,7 +174,7 @@ div[id^="q2_"] .option:hover {
 </div>
 </div>
 
-<!-- High missed calls -->
+<!-- Q2 – High missed calls -->
 <div class="question-card" id="q2_volume">
 <h3>What would help you the most?</h3>
 <div class="options">
@@ -187,7 +184,7 @@ div[id^="q2_"] .option:hover {
 </div>
 </div>
 
-<!-- Low CSAT -->
+<!-- Q2 – Low CSAT -->
 <div class="question-card" id="q2_insights">
 <h3>What do you need to improve your customer experience?</h3>
 <div class="options">
@@ -197,7 +194,7 @@ div[id^="q2_"] .option:hover {
 </div>
 </div>
 
-<!-- Coaching -->
+<!-- Q2 – Coaching -->
 <div class="question-card" id="q2_coaching">
 <h3>What coaching capabilities are most important for you?</h3>
 <div class="options">
@@ -208,7 +205,7 @@ div[id^="q2_"] .option:hover {
 </div>
 </div>
 
-<!-- Productivity -->
+<!-- Q2 – Productivity -->
 <div class="question-card" id="q2_prod">
 <h3>How can your team become more productive?</h3>
 <div class="options">
@@ -256,17 +253,23 @@ let historyStack = [];
 function nextQuestion(id, progress) {
     historyStack.push(currentViewId);
     document.getElementById(currentViewId).classList.remove('active');
+
     currentViewId = id;
     document.getElementById(id).classList.add('active');
+
     updateProgress(progress);
+
+    // Show Back button ONLY on Q2
     backBtn.style.display = 'block';
 }
 
 function showResult(id) {
     historyStack.push(currentViewId);
     document.getElementById(currentViewId).classList.remove('active');
+
     currentViewId = id;
     document.getElementById(id).classList.add('active');
+
     updateProgress(100);
     mainHeader.style.display = 'none';
     backBtn.style.display = 'none';
@@ -274,18 +277,28 @@ function showResult(id) {
 
 function goBack() {
     if (!historyStack.length) return;
+
     document.getElementById(currentViewId).classList.remove('active');
     currentViewId = historyStack.pop();
     document.getElementById(currentViewId).classList.add('active');
+
     updateProgress(historyStack.length ? 50 : 0);
+
+    // Hide Back button when returning to Q1
+    if (currentViewId === 'q1') {
+        backBtn.style.display = 'none';
+    }
 }
 
 function restart() {
     document.getElementById(currentViewId).classList.remove('active');
+
     historyStack = [];
     currentViewId = 'q1';
+
     document.getElementById('q1').classList.add('active');
     updateProgress(0);
+
     mainHeader.style.display = 'block';
     backBtn.style.display = 'none';
 }
